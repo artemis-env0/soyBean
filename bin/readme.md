@@ -130,7 +130,7 @@ The script does **not** change your HCL or state — it only updates the configu
 ## Repository Layout
 
     .
-    ├── bin
+    └── bin
          ├── env0_soyBean_migrate.py  # main bulk migration script
          └── README.md                # this file
 
