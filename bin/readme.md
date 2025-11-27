@@ -15,6 +15,64 @@ Version = v1.0.0.0
 > **ONCE YOU RUN THIS SCRIPT IN APPLY MODE, YOUR TEMPLATES WILL BE SWITCHED TO OPENTOFU.  
 > THERE IS NO GOING BACK FROM THIS OPERATION.**
 ----
+
+## Disclaimer of Warranty and Limitation of Liability
+
+> **IMPORTANT – READ BEFORE USE**
+
+By downloading, copying, modifying, or using this repository (the “Software”), you acknowledge and agree to the following terms. If you do not agree, do not use the Software.
+
+1. **No Warranty**
+
+   The Software is provided **“AS IS” and “AS AVAILABLE”**, with **no representations or warranties of any kind**, express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, title, and non-infringement.  
+   You are solely responsible for determining whether the Software is suitable for your intended use.
+
+2. **Test in a Non-Production / Temporary Environment First**
+
+   You agree **not** to use this Software directly in production without prior testing.  
+   Specifically, you agree to:
+   - First test the Software in a **temporary or non-production env0 organization** with a **single, non-critical project**, and  
+   - Validate that the behavior and resulting changes are acceptable before applying it to any production or business-critical environment.
+
+3. **Backup Requirement**
+
+   Before using the Software in any environment (including non-production), you agree to:
+   - **Backup all relevant files, configurations, and env0 settings**, including but not limited to templates, environments, variables, and policies.
+   - Ensure you have a **verified restore process** in case of misconfiguration, data loss, or unintended changes.
+
+4. **No Liability (env0 / envzero)**
+
+   To the maximum extent permitted by applicable law, **env0 / envzero, its owners, contributors, employees, and affiliates (collectively, “envzero”) shall not be liable** for any direct, indirect, incidental, special, consequential, exemplary, or punitive damages, or any loss of data, revenue, profits, use, or other economic advantage, arising out of or in connection with:
+   - The use or inability to use the Software,  
+   - Any changes made to your env0 organization, projects, templates, or environments, or  
+   - Any migration, configuration, or operational decisions you make based on the Software or its documentation,  
+   even if envzero has been advised of the possibility of such damages.
+
+5. **User Responsibility**
+
+   You understand and agree that **you** are solely responsible for:
+   - All configuration changes triggered by or related to the Software;  
+   - Verifying the accuracy, completeness, and suitability of the Software for your environment;  
+   - Reviewing all plans, diffs, and logs prior to applying changes, especially in production.
+
+6. **Indemnification**
+
+   You agree to **defend, indemnify, and hold harmless envzero** from and against any and all claims, damages, losses, liabilities, costs, and expenses (including reasonable attorneys’ fees) arising out of or related to:
+   - Your use or misuse of the Software,  
+   - Your failure to follow best practices, including testing in a non-production environment and backing up configurations, or  
+   - Your violation of any applicable law, rule, or regulation in connection with your use of the Software.
+
+7. **Acceptance**
+
+   By cloning this repository, running the scripts, or otherwise using the Software, you acknowledge that:
+   - You have read and understood this disclaimer;  
+   - You accept it as **legally binding** to the fullest extent permitted by applicable law; and  
+   - You agree that these terms apply to all uses of the Software, whether in test, staging, or production environments.
+
+If any provision of this disclaimer is held to be unenforceable, the remaining provisions shall remain in full force and effect.
+
+
+----
 This repository contains a small Python utility to **mass-update env0 Templates (blueprints)** so that their IaC tool is switched from **Terraform** to **OpenTofu**.
 
 It is designed for users who:
@@ -22,6 +80,15 @@ It is designed for users who:
 - Already run their infrastructure through **env0** using **Terraform**
 - Want to migrate to **OpenTofu** without rewriting their HCL
 - Prefer to flip many Templates at once via the env0 API instead of clicking through the UI
+
+What it won't do:
+- Will NOT migrate you from OpenTofu > Terraform
+- Will NOT work with OpenTofu, Terragrunt, or Pulumi
+---
+### Download and Run:
+
+- [⬇️ **Download soyBean v1,0,0,1 Default Package**](https://github.com/artemis-env0/env.ZT/releases/download/v1.0.0.1/env0_soyBean_migrate_run.zip)
+- [⬇️ **Download soyBean v1,0,0,0 Portable**](https://github.com/artemis-env0/env.ZT/releases/download/v1.0.0.1/env0_soyBean_migrate_full.py)
 
 ---
 
