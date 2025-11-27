@@ -42,11 +42,11 @@ Reusable helper that:
   - `headers` (with auth & JSON headers)
 
 Example usage:
-
+````python
     from env0_connect import get_env0_config
 
     BASE_URL, ORG_ID, HEADERS = get_env0_config()
-
+````
 ---
 
 #### `env0_soyBean_migrate.py`
@@ -318,16 +318,16 @@ The script does not store any local state; everything is done through the env0 A
 ### Usage Examples
 
 #### 1. Clone the Repository
-
+````bash
     git clone <your-repo-url> env0-opentofu-migration
     cd env0-opentofu-migration
-
+````
 (Optional but recommended) create and activate a virtual environment:
-
+````python
     python -m venv .venv
     source .venv/bin/activate   # Windows: .venv\Scripts\activate
     pip install requests
-
+````
 #### 2. Configure Environment Variables
 
 Set `ENV0_API_URL`, `ENV0_ORGANIZATION_ID`, `ENV0_API_KEY`, and `ENV0_API_SECRET` as shown above.
@@ -335,9 +335,9 @@ Set `ENV0_API_URL`, `ENV0_ORGANIZATION_ID`, `ENV0_API_KEY`, and `ENV0_API_SECRET
 #### 3. Verify `TERRAFORM_TOOL_FIELD`
 
 Edit `env0_soyBean_migrate.py` and set the correct field name:
-
+````python
     TERRAFORM_TOOL_FIELD = "iacType"  # example – replace with your real field name
-
+````
 #### 4. Run a DRY RUN (Recommended First)
 
 Confirm `DRY_RUN` is set to `True`:
@@ -345,9 +345,9 @@ Confirm `DRY_RUN` is set to `True`:
     DRY_RUN = True
 
 Run the script:
-
+```bash
     python env0_soyBean_migrate.py
-
+````
 Example DRY-RUN output:
 
     Found 27 templates in org org-xxxxxxxx
@@ -448,8 +448,6 @@ Some easy tweaks you can make:
 
 ### License
 
-Update this section according to your organization’s standards.
-
-    Copyright (c) <YEAR> <Your Company>
+    Copyright (c) 2025 EnvZero (env0)
 
     All rights reserved.
