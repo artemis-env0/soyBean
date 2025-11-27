@@ -8,7 +8,7 @@ EnvZero SoyBean Migrator
 #### Version :
 
 ````git
-Version = v1.0.0.1
+Version = v1.0.0.2
 ````
 ----
 ### ⚠️⚠️⚠️ **IRREVERSIBLE ACTION AHEAD** ⚠️⚠️⚠️  
@@ -145,32 +145,34 @@ The script does **not** change your HCL or state — it only updates the configu
 
 #### 'env0_connect.py'
 ````python
+   #!/usr/bin/env python3
 
-    #!/usr/bin/env python3
-    import os
-    import base64
+import sys
+import urllib3
+import os
+import base64 as b64
 
 
-    def get_env0_config():
-        """
-        Read env0-related environment variables and return:
-        - base_url
-        - org_id
-        - headers (with Basic auth)
-        """
-        base_url = os.environ.get("ENV0_API_URL", "https://api.env0.com")
-        org_id = os.environ["ENV0_ORGANIZATION_ID"]
-        api_key = os.environ["ENV0_API_KEY"]
-        api_secret = os.environ["ENV0_API_SECRET"]
+def get_env0_config():
+    """
+    Read env0-related environment variables and return:
+    - api_base_uri
+    - org_oid
+    - headers (with Basic auth)
+    """
+    api_base_uri = os.environ.get("ENV0_API_URL", "https://api.env0.com")
+    org_oid = os.environ["ENV0_ORGANIZATION_ID"]
+    api_key = os.environ["ENV0_API_KEY"]
+    api_secret = os.environ["ENV0_API_SECRET"]
 
-        token = base64.b64encode(f"{api_key}:{api_secret}".encode("utf-8")).decode("ascii")
-        headers = {
-            "Authorization": f"Basic {token}",
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-        }
+    token = b64.b64encode(f"{api_key}:{api_secret}".encode("utf-8")).decode("ascii")
+    headers = {
+        "Authorization": f"Basic {token}",
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+    }
 
-        return base_url, org_id, headers
+    return api_base_uri, org_oid, headers
 ````
 ---
 #### 'env0_soyBean_migrate.py'
@@ -185,7 +187,7 @@ import base64 as b64
 from env0_connect import get_env0_config
 
 # ---------- env0 config (from shared auth lib) ----------
-BASE_URL, ORG_ID, HEADERS = get_env0_config()
+api_base_uri, org_oid, HEADERS = get_env0_config()
 
 # ------------------------ config ------------------------
 DRY_RUN = True  # set to False to actually update
@@ -203,10 +205,10 @@ def env0_get_all_templates():
 
     while True:
         resp = requests.get(
-            f"{BASE_URL}/blueprints",
+            f"{api_base_uri}/blueprints",
             headers=HEADERS,
             params={
-                "organizationId": ORG_ID,
+                "organizationId": org_oid,
                 "page": page,
                 "limit": 100,
             },
@@ -251,7 +253,7 @@ def env0_update_template_tool(template, new_tool):
     }
 
     resp = requests.put(
-        f"{BASE_URL}/blueprints/{tpl_id}",
+        f"{api_base_uri}/blueprints/{tpl_id}",
         headers=HEADERS,
         json=body,
         timeout=30,
@@ -261,7 +263,7 @@ def env0_update_template_tool(template, new_tool):
 
 def env0_ignite():
     templates = env0_get_all_templates()
-    print(f"Found {len(templates)} templates in org {ORG_ID}")
+    print(f"Found {len(templates)} templates in org {org_oid}")
 
     to_change = [
         t for t in templates
@@ -284,7 +286,6 @@ def env0_ignite():
 
 if __name__ == "__main__":
     env0_ignite()
-
 ````
 ---
 
