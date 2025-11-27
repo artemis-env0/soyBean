@@ -148,26 +148,39 @@ import urllib3
 import base64 as b64
 import requests
 
-BASE_URL = os.environ.get("ENV0_API_URL", "https://api.env0.com")
-ORG_ID = os.environ["ENV0_ORGANIZATION_ID"]
-API_KEY = os.environ["ENV0_API_KEY"]
-API_SECRET = os.environ["ENV0_API_SECRET"]
 
-# ---- config ----
+def get_env0_config():
+    """
+    Read env0-related environment variables and return:
+    - base_url
+    - org_id
+    - headers (with Basic auth)
+    """
+    base_url = os.environ.get("ENV0_API_URL", "https://api.env0.com")
+    org_id = os.environ["ENV0_ORGANIZATION_ID"]
+    api_key = os.environ["ENV0_API_KEY"]
+    api_secret = os.environ["ENV0_API_SECRET"]
+
+    token = b64.b64encode(f"{api_key}:{api_secret}".encode("utf-8")).decode("ascii")
+    headers = {
+        "Authorization": f"Basic {token}",
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+    }
+
+    return base_url, org_id, headers
+
+
+# ---------- env0 config ----------
+BASE_URL, ORG_ID, HEADERS = get_env0_config()
+
+# ---------- config ----------
 DRY_RUN = True  # set to False to actually update
 TERRAFORM_TOOL_FIELD = "terraformTools"  # <-- replace with real field name from GET /blueprints/{id}
 TARGET_TOOL = "opentofu"                 # desired value; valid values: 'opentofu', 'terraform'
 
-# ---- auth header (Basic <base64(apiKey:apiSecret)>) ----
-token = b64.b64encode(f"{API_KEY}:{API_SECRET}".encode("utf-8")).decode("ascii")
-HEADERS = {
-    "Authorization": f"Basic {token}",
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-}
 
-
-def get_all_templates():
+def env0_get_all_templates():
     """
     Fetch all templates (blueprints) for the organization.
     The exact pagination keys may vary; if your org is small this might just return a flat list.
@@ -190,7 +203,11 @@ def get_all_templates():
         data = resp.json()
 
         # Some env0 endpoints wrap results; others just return a list.
-        docs = data.get("documents", data)
+        if isinstance(data, list):
+            docs = data
+        else:
+            docs = data.get("documents", data)
+
         if not isinstance(docs, list) or not docs:
             break
 
@@ -202,7 +219,7 @@ def get_all_templates():
     return templates
 
 
-def update_template_tool(template, new_tool):
+def env0_update_template_tool(template, new_tool):
     """
     Update a single template's Terraform/OpenTofu tool.
 
@@ -229,8 +246,8 @@ def update_template_tool(template, new_tool):
     resp.raise_for_status()
 
 
-def main():
-    templates = get_all_templates()
+def env0_ignite():
+    templates = env0_get_all_templates()
     print(f"Found {len(templates)} templates in org {ORG_ID}")
 
     to_change = [
@@ -249,11 +266,12 @@ def main():
         print(f"{prefix} {name} ({tpl_id}): {current} -> {TARGET_TOOL}")
 
         if not DRY_RUN:
-            update_template_tool(t, TARGET_TOOL)
+            env0_update_template_tool(t, TARGET_TOOL)
 
 
 if __name__ == "__main__":
-    main()
+    env0_ignite()
+
 ````
 ---
 
