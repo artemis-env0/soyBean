@@ -2,13 +2,13 @@
   <img width="128" height="128" alt="image" src="https://github.com/user-attachments/assets/e2ca24e2-8289-4001-879f-81c40a8a4df9" />
 </h3>
 
-EnvZero SoyBean Migrator
+EnvZero SoyBean Migrator Full
 ----
 ### env0 Terraform → OpenTofu Bulk Migrator
 #### Version :
 
 ````git
-Version = v1.0.0.1
+Version = v1.0.0.0
 ````
 ----
 ### ⚠️⚠️⚠️ **IRREVERSIBLE ACTION AHEAD** ⚠️⚠️⚠️  
@@ -92,12 +92,9 @@ What it won't do:
 
 ---
 
-### How It Works
+### How It Works :
 
-There are **two Python modules**:
-
-#### `env0_connect.py`
-
+```git
 Reusable helper that:
 
 - Reads env0 configuration from environment variables
@@ -106,13 +103,14 @@ Reusable helper that:
   - `base_url` (env0 API URL)
   - `org_id` (env0 organization id)
   - `headers` (with auth & JSON headers)
+````
 
 Example usage:
-````python
-    from env0_connect import get_env0_config
+
+    from env0_auth import get_env0_config
 
     BASE_URL, ORG_ID, HEADERS = get_env0_config()
-````
+
 ---
 
 #### `env0_soyBean_migrate.py`
@@ -132,64 +130,53 @@ The script does **not** change your HCL or state — it only updates the configu
 ## Repository Layout
 
     .
-    ├── bin                                  # shared env0 auth helper
-         ├── env0_soyBean_migrate_full.py    # main bulk migration script w/ env0_connect
-         └── readme.md                       # Readme Markdown for Folder
-    ├── env0_connect.py                      # shared env0 auth helper
-    ├── env0_soyBean_migrate.py              # main bulk migration script
-    └── README.md                            # this file
+    └── bin
+         ├── env0_soyBean_migrate.py  # env0 Terraform > OpenTofu bulk migration script
+         └── README.md                # this file
 
 ---
 
 ### File Contents
 
-#### 'env0_connect.py'
-````python
-
-    #!/usr/bin/env python3
-    import os
-    import base64
-
-
-    def get_env0_config():
-        """
-        Read env0-related environment variables and return:
-        - base_url
-        - org_id
-        - headers (with Basic auth)
-        """
-        base_url = os.environ.get("ENV0_API_URL", "https://api.env0.com")
-        org_id = os.environ["ENV0_ORGANIZATION_ID"]
-        api_key = os.environ["ENV0_API_KEY"]
-        api_secret = os.environ["ENV0_API_SECRET"]
-
-        token = base64.b64encode(f"{api_key}:{api_secret}".encode("utf-8")).decode("ascii")
-        headers = {
-            "Authorization": f"Basic {token}",
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-        }
-
-        return base_url, org_id, headers
-````
----
-#### 'env0_soyBean_migrate.py'
+#### 'env0_soyBean_migrate_full'
 ````python
 #!/usr/bin/env python3
 
-import requests
 import os
 import sys
 import urllib3
 import base64 as b64
-from env0_connect import get_env0_config
+import requests
 
-# ---------- env0 config (from shared auth lib) ----------
+
+def get_env0_config():
+    """
+    Read env0-related environment variables and return:
+    - base_url
+    - org_id
+    - headers (with Basic auth)
+    """
+    base_url = os.environ.get("ENV0_API_URL", "https://api.env0.com")
+    org_id = os.environ["ENV0_ORGANIZATION_ID"]
+    api_key = os.environ["ENV0_API_KEY"]
+    api_secret = os.environ["ENV0_API_SECRET"]
+
+    token = b64.b64encode(f"{api_key}:{api_secret}".encode("utf-8")).decode("ascii")
+    headers = {
+        "Authorization": f"Basic {token}",
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+    }
+
+    return base_url, org_id, headers
+
+
+# ---------- env0 config ----------
 BASE_URL, ORG_ID, HEADERS = get_env0_config()
 
-# ------------------------ config ------------------------
+# ---------- config ----------
 DRY_RUN = True  # set to False to actually update
-TERRAFORM_TOOL_FIELD = "terraformTools"  # replace with real field name from GET /blueprints/{id} [Endpoint]
+TERRAFORM_TOOL_FIELD = "terraformTools"  # <-- replace with real field name from GET /blueprints/{id}
 TARGET_TOOL = "opentofu"                 # desired value; valid values: 'opentofu', 'terraform'
 
 
