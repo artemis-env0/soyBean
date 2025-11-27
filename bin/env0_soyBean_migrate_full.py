@@ -5,6 +5,7 @@ Author:
     
 Release Notes:
     - v1.0.0.0
+    - All in One
     - Initial Release
 
 Fixes:
@@ -51,6 +52,8 @@ Notes:
 """
 
 import os
+import sys
+import urllib3
 import base64 as b64
 import requests
 
