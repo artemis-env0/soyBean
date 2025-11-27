@@ -17,7 +17,7 @@ Description:
     their IaC tool is switched from Terraform to OpenTofu.
 
     The script:
-      - Authenticates to env0 using API key/secret (via env0_connect.py.get_env0_config)
+      - Authenticates to env0 using API key/secret
       - Lists all templates in the given organization
       - Filters templates currently using Terraform
       - In DRY-RUN mode: prints what would be changed
