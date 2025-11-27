@@ -87,8 +87,8 @@ What it won't do:
 ---
 ### Download and Run:
 
--- [⬇️ **Download soyBean v1,0,0,1 Default Package**](https://github.com/artemis-env0/env.ZT/releases/download/v1.0.0.1/env0_soyBean_migrate_run.zip)
--- [⬇️ **Download soyBean v1,0,0,0 Portable**](https://github.com/artemis-env0/env.ZT/releases/download/v1.0.0.1/env0_soyBean_migrate_full.py)
+- - - [⬇️ **Download soyBean v1,0,0,1 Default Package**](https://github.com/artemis-env0/env.ZT/releases/download/v1.0.0.1/env0_soyBean_migrate_run.zip)
+- - - [⬇️ **Download soyBean v1,0,0,0 Portable**](https://github.com/artemis-env0/env.ZT/releases/download/v1.0.0.1/env0_soyBean_migrate_full.py)
 
 ---
 
