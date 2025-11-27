@@ -24,7 +24,7 @@ It is designed for users who:
 
 There are **two Python modules**:
 
-#### `env0_auth.py`
+#### `env0_connect.py`
 
 Reusable helper that:
 
@@ -37,13 +37,13 @@ Reusable helper that:
 
 Example usage:
 
-    from env0_auth import get_env0_config
+    from env0_connect import get_env0_config
 
     BASE_URL, ORG_ID, HEADERS = get_env0_config()
 
 ---
 
-#### `mass_update_opentofu.py`
+#### `env0_soyBean_migrate.py`
 
 Main script that:
 
@@ -60,15 +60,18 @@ The script does **not** change your HCL or state — it only updates the configu
 ## Repository Layout
 
     .
-    ├── env0_auth.py             # shared env0 auth helper
-    ├── mass_update_opentofu.py  # main bulk migration script
-    └── README.md                # this file
+    ├── bin                                  # shared env0 auth helper
+         ├── env0_soyBean_migrate_full.py    # main bulk migration script w/ env0_connect
+         └── readme.md                       # Readme Markdown for Folder
+    ├── env0_connect.py                      # shared env0 auth helper
+    ├── env0_soyBean_migrate.py              # main bulk migration script
+    └── README.md                            # this file
 
 ---
 
 ### File Contents
 
-#### `env0_auth.py`
+#### `env0_connect.py`
 
     #!/usr/bin/env python3
     import os
@@ -98,18 +101,18 @@ The script does **not** change your HCL or state — it only updates the configu
 
 ---
 
-#### `mass_update_opentofu.py`
+#### `env0_soyBean_migrate.py`
 
     #!/usr/bin/env python3
     """
-    mass_update_opentofu.py
+    env0_soyBean_migrate.py
 
     Utility script to mass-update env0 templates (blueprints) so that
     their IaC tool is switched from Terraform to OpenTofu.
     """
 
     import requests
-    from env0_auth import get_env0_config
+    from env0_connect import get_env0_config
 
     # ---- env0 config (from shared auth lib) ----
     BASE_URL, ORG_ID, HEADERS = get_env0_config()
@@ -256,7 +259,7 @@ Example (Windows PowerShell):
 
 ### IMPORTANT: Set the Tool Field Name
 
-Inside `mass_update_opentofu.py` you’ll see:
+Inside `env0_soyBean_migrate.py` you’ll see:
 
     DRY_RUN = True  # set to False to actually update
     TERRAFORM_TOOL_FIELD = "terraformTools"  # <-- replace with real field name
@@ -322,7 +325,7 @@ Set `ENV0_API_URL`, `ENV0_ORGANIZATION_ID`, `ENV0_API_KEY`, and `ENV0_API_SECRET
 
 #### 3. Verify `TERRAFORM_TOOL_FIELD`
 
-Edit `mass_update_opentofu.py` and set the correct field name:
+Edit `env0_soyBean_migrate.py` and set the correct field name:
 
     TERRAFORM_TOOL_FIELD = "iacType"  # example – replace with your real field name
 
@@ -334,7 +337,7 @@ Confirm `DRY_RUN` is set to `True`:
 
 Run the script:
 
-    python mass_update_opentofu.py
+    python env0_soyBean_migrate.py
 
 Example DRY-RUN output:
 
@@ -351,7 +354,7 @@ At this stage, **no** changes are made in env0; the script only prints what it *
 
 Once you’re satisfied with the DRY RUN:
 
-1. Edit `mass_update_opentofu.py`  
+1. Edit `env0_soyBean_migrate.py`  
 2. Change:
 
        DRY_RUN = True
@@ -362,7 +365,7 @@ Once you’re satisfied with the DRY RUN:
 
 3. Run the script again:
 
-       python mass_update_opentofu.py
+       python env0_soyBean_migrate.py
 
 Example APPLY output:
 
