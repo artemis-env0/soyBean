@@ -78,6 +78,7 @@ The script does **not** change your HCL or state — it only updates the configu
 ### File Contents
 
 #### `env0_connect.py`
+````python
 
     #!/usr/bin/env python3
     import os
@@ -104,9 +105,9 @@ The script does **not** change your HCL or state — it only updates the configu
         }
 
         return base_url, org_id, headers
-
+````
 ---
-
+````python
 #### `env0_soyBean_migrate.py`
 
     #!/usr/bin/env python3
@@ -216,7 +217,7 @@ The script does **not** change your HCL or state — it only updates the configu
 
     if __name__ == "__main__":
         main()
-
+````
 ---
 
 ### Prerequisites
@@ -231,9 +232,9 @@ The script does **not** change your HCL or state — it only updates the configu
 #### Python dependencies
 
 Install the `requests` library:
-
+````pip
     pip install requests
-
+````
 (You can also add `requests` to a `requirements.txt` if desired.)
 
 ---
@@ -248,29 +249,31 @@ The scripts rely on the following environment variables:
 - `ENV0_API_SECRET` (required)
 
 Example (macOS / Linux / WSL):
-
+````bash
     export ENV0_API_URL="https://api.env0.com"
     export ENV0_ORGANIZATION_ID="org-xxxxxxxx"
     export ENV0_API_KEY="your-api-key"
     export ENV0_API_SECRET="your-api-secret"
-
+````
+----
 Example (Windows PowerShell):
-
+````powershell
     $env:ENV0_API_URL = "https://api.env0.com"
     $env:ENV0_ORGANIZATION_ID = "org-xxxxxxxx"
     $env:ENV0_API_KEY = "your-api-key"
     $env:ENV0_API_SECRET = "your-api-secret"
-
+````
 ---
 
 ### IMPORTANT: Set the Tool Field Name
 
 Inside `env0_soyBean_migrate.py` you’ll see:
-
+````python
     DRY_RUN = True  # set to False to actually update
     TERRAFORM_TOOL_FIELD = "terraformTools"  # <-- replace with real field name
     TARGET_TOOL = "opentofu"
-
+````
+----
 `TERRAFORM_TOOL_FIELD` is the **JSON field** in the env0 blueprint object that stores which IaC tool is used for that Template (e.g. `"terraform"` vs `"opentofu"`).
 
 Because the exact field name can differ between environments, you should:
@@ -278,10 +281,10 @@ Because the exact field name can differ between environments, you should:
 1. Pick a template in env0 that you know is using Terraform.  
 2. Get its ID (from the env0 UI or from listing blueprints).  
 3. Call the env0 API manually (example):
-
+````bash
        curl -H "Authorization: Basic <BASE64(API_KEY:API_SECRET)>" \
             "https://api.env0.com/blueprints/<TEMPLATE_ID>"
-
+````
 4. Inspect the JSON response and look for the field that:
    - Exists on that blueprint object, and  
    - Has the value `"terraform"` for this template  
