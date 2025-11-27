@@ -10,7 +10,8 @@ EnvZero SoyBean Migrator
 ````git
 Version = v1.0.0.1
 ````
-## > ⚠️⚠️⚠️ **IRREVERSIBLE ACTION AHEAD** ⚠️⚠️⚠️  
+----
+### ⚠️⚠️⚠️ **IRREVERSIBLE ACTION AHEAD** ⚠️⚠️⚠️  
 > **ONCE YOU RUN THIS SCRIPT IN APPLY MODE, YOUR TEMPLATES WILL BE SWITCHED TO OPENTOFU.  
 > THERE IS NO GOING BACK FROM THIS OPERATION.**
 ----
