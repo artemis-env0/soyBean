@@ -449,5 +449,5 @@ Some easy tweaks you can make:
 ### License
 
     Copyright (c) 2025 EnvZero (env0)
-
+    Author: artem@env0
     All rights reserved.
