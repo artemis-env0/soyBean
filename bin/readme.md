@@ -10,6 +10,11 @@ EnvZero SoyBean Migrator Full
 ````git
 Version = v1.0.0.0
 ````
+----
+### ⚠️⚠️⚠️ **IRREVERSIBLE ACTION AHEAD** ⚠️⚠️⚠️  
+> **ONCE YOU RUN THIS SCRIPT IN APPLY MODE, YOUR TEMPLATES WILL BE SWITCHED TO OPENTOFU.  
+> THERE IS NO GOING BACK FROM THIS OPERATION.**
+----
 This repository contains a small Python utility to **mass-update env0 Templates (blueprints)** so that their IaC tool is switched from **Terraform** to **OpenTofu**.
 
 It is designed for users who:
