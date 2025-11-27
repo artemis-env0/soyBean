@@ -6,7 +6,7 @@ Author:
     artem@env0
     
 Release Notes:
-    - v0.0.1b
+    - v0.0.2
     - Initial Release
 
 Fixes:
@@ -16,7 +16,7 @@ Description:
     Shared helper module for env0 API authentication and configuration.
 
     Exposes:
-      - get_env0_config() -> (base_url, org_id, headers)
+      - get_env0_config() -> (api_base_uri, org_oid, headers)
 
 Environment Variables:
     ENV0_API_URL             (optional, default: https://api.env0.com)
@@ -26,7 +26,7 @@ Environment Variables:
 
 Usage:
     from env0_connect import get_env0_config
-    BASE_URL, ORG_ID, HEADERS = get_env0_config()
+    api_base_uri, org_oid, HEADERS = get_env0_config()
 """
 
 import sys
@@ -38,12 +38,12 @@ import base64 as b64
 def get_env0_config():
     """
     Read env0-related environment variables and return:
-    - base_url
-    - org_id
+    - api_base_uri
+    - org_oid
     - headers (with Basic auth)
     """
-    base_url = os.environ.get("ENV0_API_URL", "https://api.env0.com")
-    org_id = os.environ["ENV0_ORGANIZATION_ID"]
+    api_base_uri = os.environ.get("ENV0_API_URL", "https://api.env0.com")
+    org_oid = os.environ["ENV0_ORGANIZATION_ID"]
     api_key = os.environ["ENV0_API_KEY"]
     api_secret = os.environ["ENV0_API_SECRET"]
 
@@ -54,4 +54,4 @@ def get_env0_config():
         "Accept": "application/json",
     }
 
-    return base_url, org_id, headers
+    return api_base_uri, org_oid, headers
