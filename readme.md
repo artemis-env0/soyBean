@@ -87,8 +87,8 @@ What it won't do:
 ---
 ### Download and Run:
 
-- [<img width="16" height="16" alt="image" src="https://raw.githubusercontent.com/artemis-env0/Packages/refs/heads/main/Images/Logo%20Pack/03%20Logomark/Digital/SVG/envzero_logomark_fullcolor_rgb.svg"/> **Download soyBean v1.0.0.1 Default Package**](https://github.com/artemis-env0/env.ZT/releases/download/v1.0.0.1/env0_soyBean_migrate_run_v1001.zip)
-- [<img width="16" height="16" alt="image" src="https://raw.githubusercontent.com/artemis-env0/Packages/refs/heads/main/Images/Logo%20Pack/03%20Logomark/Digital/SVG/envzero_logomark_fullcolor_rgb.svg"/> **Download soyBean v1.0.0.0 Portable**](https://github.com/artemis-env0/env.ZT/releases/download/v1.0.0.1/env0_soyBean_migrate_full_v1000.py)
+- [<img width="18" height="18" alt="image" src="https://raw.githubusercontent.com/artemis-env0/Packages/refs/heads/main/Images/Logo%20Pack/03%20Logomark/Digital/SVG/envzero_logomark_fullcolor_rgb.svg"/> **Download soyBean v1.0.0.1 Default Package**](https://github.com/artemis-env0/env.ZT/releases/download/v1.0.0.1/env0_soyBean_migrate_run_v1001.zip)
+- [<img width="18" height="18" alt="image" src="https://raw.githubusercontent.com/artemis-env0/Packages/refs/heads/main/Images/Logo%20Pack/03%20Logomark/Digital/SVG/envzero_logomark_fullcolor_rgb.svg"/> **Download soyBean v1.0.0.0 Portable**](https://github.com/artemis-env0/env.ZT/releases/download/v1.0.0.1/env0_soyBean_migrate_full_v1000.py)
 
 ---
 
