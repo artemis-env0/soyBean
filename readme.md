@@ -1,4 +1,4 @@
-<h3 align="center">
+<h3 align="left">
   <img width="512" height="128" alt="image" src="https://raw.githubusercontent.com/artemis-env0/Packages/refs/heads/main/Images/Logo%20Pack/01%20Main%20Logo/Digital/SVG/envzero_logomark_fullcolor_rgb.svg" />
 </h3>
 
