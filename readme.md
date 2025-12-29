@@ -8,7 +8,7 @@ EnvZero SoyBean Migrator
 #### Version :
 
 ````git
-Version = v1.0.0.2
+Version = v1.0.0.3
 ````
 ----
 ### ⚠️⚠️⚠️ **IRREVERSIBLE ACTION AHEAD** ⚠️⚠️⚠️  
