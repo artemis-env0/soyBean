@@ -6,7 +6,7 @@ Author:
     artem@env0
 
 Release Notes:
-    - v1.0.0.4
+    - v1.0.0.5
     - Added multi-method authentication: GlobalEnv, UseKubeSecret (default), Base64, BuildKubeSecret
     - Added launch modes: Quiet, Interactive, Menu, Sandbox
     - Added Kubernetes provider switch: kubectl or kubernetes python client
@@ -149,15 +149,7 @@ def _fallback_large_ascii_logo() -> str:
 
 
 def _render_logo_from_image_ansi(path: str, width: int = 80) -> Optional[str]:
-    """
-    Attempts to load an image and render a monochrome/ANSI-green ASCII logo.
-    Requires Pillow (PIL). If unavailable, returns None.
 
-    Strategy:
-      - Crop away mostly-white background
-      - Resize for terminal aspect ratio
-      - Render green blocks for non-white pixels
-    """
     try:
         from PIL import Image  # type: ignore
     except Exception:
